@@ -1,0 +1,117 @@
+#Shea Retallack
+#Student number: 21511211
+#Curtin University
+#THE PURPOSE OF THIS FILE IS TO PROVIDE A ROS2 QUICK REFERENCE AND START COMMANDS FOR THE EFLESH UR5 IMPLEMENTATION
+
+--------------------------------------QUICK START--------------------------------
+conda activate eflesh
+cd ~/eflesh_ws
+source ~/eflesh_ws/install/setup.bash
+ping -c 3 192.168.56.101
+ros2 launch eflesh_sensor eflesh_launch.py #leave this terminal running
+
+#press play on ur5 teach pendant
+
+#CHECK UR5 NETWORK CONNECTION OVER ETHERNET
+#host PC IP set to 192.168.56.20
+#ur5 custom port 50002
+#ping should return 3 packets
+ping -c 3 192.168.56.101
+
+--------------------------------------TESTING/ERRORS-----------------------------
+#if code has been modified between builds
+cd ~/eflesh_ws
+conda activate eflesh
+colcon build --packages-select eflesh_sensor
+source ~/eflesh_ws/install/setup.bash
+ros2 launch eflesh_sensor eflesh_launch.py
+
+#check ros nodes and topics
+ros2 node list
+ros2 topic list
+
+#check eflesh data
+ros2 topic echo /eflesh/data
+
+#collision detection
+ros2 topic echo /eflesh/collision
+
+#check joint position
+ros2 topic echo /joint_states --once
+
+#check joint controllers
+ros2 control list_controllers
+
+#check available actions
+ros2 action list
+
+#check joint order
+ros2 param get /scaled_joint_trajectory_controller joints
+
+#publisher/subscriber check
+ros2 topic info /eflesh/data -v
+ros2 topic info /eflesh/collision -v
+
+#check nodes
+ros2 node info /eflesh_publisher
+ros2 node info /collision_detector
+ros2 node info /ur5_collision_monitor
+
+#if ROS commands cant be found
+source /opt/ros/jazzy/setup.bash
+source ~/eflesh_ws/install/setup.bash
+
+#if no eflesh package can be found
+cd ~/eflesh_ws
+colcon build --packages-select eflesh_sensor
+source ~/eflesh_ws/install/setup.bash
+
+
+--------------------------------------SEND COMMANDS TO UR5-----------------------
+#open second terminal and run
+cd ~/eflesh_ws
+source install/setup.bash
+#RETURN TO HOME position
+ros2 action send_goal --feedback \
+/scaled_joint_trajectory_controller/follow_joint_trajectory \
+control_msgs/action/FollowJointTrajectory \
+"{trajectory: {
+  joint_names: ['shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'],
+  points: [{
+    positions: [
+      0.0000119842,
+      -1.5707724730,
+      0.0000357628,
+      -1.5708444754,
+      -0.0000355879,
+      0.0000962483
+    ],
+    time_from_start: {sec: 10}
+  }]
+}}"
+
+
+
+#MOVE SHOULDER
+ros2 action send_goal --feedback \
+/scaled_joint_trajectory_controller/follow_joint_trajectory \
+control_msgs/action/FollowJointTrajectory \
+"{trajectory: {
+  joint_names: ['shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'],
+  points: [{
+    positions: [-2.7043,-0.5218,-1.8472,-0.7946,1.5749,-0.7894],
+    time_from_start: {sec: 5}
+  }]
+}}"
+
+#RETURN SHOULDER TO START POINT 
+ros2 action send_goal --feedback \
+/scaled_joint_trajectory_controller/follow_joint_trajectory \
+control_msgs/action/FollowJointTrajectory \
+"{trajectory: {
+  joint_names: ['shoulder_pan_joint','shoulder_lift_joint','elbow_joint','wrist_1_joint','wrist_2_joint','wrist_3_joint'],
+  points: [{
+    positions: [-2.7916,-0.5218,-1.8472,-0.7946,1.5749,-0.7894],
+    time_from_start: {sec: 5}
+  }]
+}}"

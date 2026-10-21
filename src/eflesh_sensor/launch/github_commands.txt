@@ -1,0 +1,10 @@
+#commit new changes to github
+cd ~/eflesh_ws
+
+git status
+
+git add .
+
+git commit -m "DESCRIPTION OF CHANGES"
+
+git push
