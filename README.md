@@ -48,6 +48,7 @@ This project features:
 
 **Repo Structure**
 
+```text
 eFlesh_Sensor_Development/
 │
 ├── arduino/
@@ -64,3 +65,4 @@ eFlesh_Sensor_Development/
 │   └── UR5 movement demonstration script
 │
 └── README.md
+```
