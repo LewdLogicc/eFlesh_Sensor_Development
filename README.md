@@ -13,19 +13,19 @@ This project expands on the work previously completed by eFlesh originators and 
 
 eFlesh
 
-Website: https://e-flesh.com/
+  Website: https://e-flesh.com/
 
-Paper: https://arxiv.org/abs/2506.09994
+  Paper: https://arxiv.org/abs/2506.09994
 
-Accompanying GitHub Repo: https://github.com/notvenky/eFlesh
+  Accompanying GitHub Repo: https://github.com/notvenky/eFlesh
 
 ReSkin
 
-Website: https://reskin.dev/
+  Website: https://reskin.dev/
 
-Paper: https://openreview.net/pdf?id=87_OJU4sw3V
+  Paper: https://openreview.net/pdf?id=87_OJU4sw3V
 
-Accompanying GitHub Repo: https://github.com/raunaqbhirangi/reskin_sensor
+  Accompanying GitHub Repo: https://github.com/raunaqbhirangi/reskin_sensor
 
 **Special thanks to Curtin Robotics Club for providing access to the UR5 for this project**
 Website: https://croc.tidyhq.com/
